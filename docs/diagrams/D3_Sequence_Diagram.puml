@@ -1,0 +1,84 @@
+@startuml D3_Sequence_Diagram
+!theme plain
+autonumber
+skinparam roundcorner 8
+skinparam shadowing false
+
+actor "Buyer (Browser)" as Browser
+participant "AuthFilter" as Filter
+participant "CheckoutServlet" as Servlet
+participant "OrderService" as Service
+participant "PaymentStrategy" as Payment
+participant "OrderDAO" as OrderDAO
+participant "OrderItemDAO" as ItemDAO
+participant "ProductDAO" as ProductDAO
+participant "CartDAO" as CartDAO
+database "H2 Database" as DB
+
+Browser -> Filter : POST /checkout {shippingAddress, paymentMethod}
+activate Filter
+Filter -> Filter : Verify session & currentUser
+Filter -> Servlet : forward to doPost()
+activate Servlet
+
+Servlet -> Service : checkout(buyerId, orderRequestDTO)
+activate Service
+
+Service -> CartDAO : findByUserId(buyerId)
+activate CartDAO
+CartDAO -> DB : SELECT FROM cart_items JOIN products...
+CartDAO --> Service : List<CartItem>
+deactivate CartDAO
+
+loop For each cart item
+  Service -> ProductDAO : findById(productId)
+  activate ProductDAO
+  ProductDAO -> DB : SELECT FROM products WHERE id=?
+  ProductDAO --> Service : Product entity
+  deactivate ProductDAO
+  Service -> Service : Verify stock >= quantity
+end
+
+Service -> Payment : processPayment(buyerId, total, method)
+activate Payment
+Payment --> Service : PaymentResult (Authorized, txnId)
+deactivate Payment
+
+note over Service, DB : Begin JDBC Transaction (conn.setAutoCommit(false))
+
+Service -> OrderDAO : create(conn, order)
+activate OrderDAO
+OrderDAO -> DB : INSERT INTO orders VALUES (?, ?, ?, ?)
+OrderDAO --> Service : Order entity (generated ID)
+deactivate OrderDAO
+
+loop For each cart item
+  Service -> ItemDAO : create(conn, orderItem)
+  activate ItemDAO
+  ItemDAO -> DB : INSERT INTO order_items VALUES (?, ?, ?, ?, ?)
+  ItemDAO --> Service : OrderItem entity
+  deactivate ItemDAO
+
+  Service -> ProductDAO : deductStock(productId, quantity)
+  activate ProductDAO
+  ProductDAO -> DB : UPDATE products SET stock_qty = stock_qty - ? WHERE id=? AND stock_qty >= ?
+  ProductDAO --> Service : true (atomic deduction)
+  deactivate ProductDAO
+end
+
+Service -> CartDAO : clearCart(conn, buyerId)
+activate CartDAO
+CartDAO -> DB : DELETE FROM cart_items WHERE user_id=?
+CartDAO --> Service : true
+deactivate CartDAO
+
+note over Service, DB : Commit JDBC Transaction (conn.commit())
+
+Service --> Servlet : Order entity (with items populated)
+deactivate Service
+
+Servlet --> Browser : 302 Redirect to /orders?placedOrderId={id} (or 201 JSON)
+deactivate Servlet
+deactivate Filter
+
+@enduml

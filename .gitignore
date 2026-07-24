@@ -1,0 +1,33 @@
+# Compiled classes and build artifacts
+target/
+*.class
+*.war
+*.ear
+
+# Environment & Credentials (Section 9 & 10)
+.env
+config.properties
+src/main/resources/config.properties
+!src/main/resources/config.properties.example
+!.env.example
+
+# Database files
+*.db
+*.mv.db
+*.trace.db
+data/
+/data/
+
+# IDE & Editor files
+.idea/
+*.iml
+.vscode/
+.project
+.classpath
+.settings/
+*.log
+
+# OS generated
+Thumbs.db
+Desktop.ini
+.DS_Store

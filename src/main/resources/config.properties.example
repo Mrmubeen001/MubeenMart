@@ -1,0 +1,20 @@
+# Database Configuration Template
+db.url=jdbc:h2:mem:mubeenmart;DB_CLOSE_DELAY=-1
+db.user=sa
+db.password=
+db.driver=org.h2.Driver
+
+# Connection Pool Settings (HikariCP)
+hikari.maximumPoolSize=10
+hikari.minimumIdle=2
+hikari.idleTimeout=300000
+hikari.connectionTimeout=20000
+
+# Session Configuration
+session.timeoutMinutes=30
+
+# AI Chatbot Configuration (Section 11 & 17)
+ai.chatbot.provider=mock
+ai.chatbot.gemini.apiKey=
+ai.chatbot.rateLimitPerMinute=10
+ai.chatbot.maxInputLength=500
