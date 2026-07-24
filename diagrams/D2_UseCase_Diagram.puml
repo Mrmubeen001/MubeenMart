@@ -1,0 +1,59 @@
+@startuml D2_UseCase_Diagram
+!theme plain
+left to right direction
+skinparam packageStyle rectangle
+skinparam roundcorner 8
+skinparam shadowing false
+
+actor "Buyer" as buyer #LightBlue
+actor "Seller" as seller #LightGreen
+actor "Admin" as admin #LightYellow
+
+rectangle "MubeenMart System Boundaries" {
+  ' Common / F1
+  usecase "F1: Register & Log In (Role-based)" as UC_Auth
+  usecase "F3: Browse & Search/Filter Catalog" as UC_Browse
+  usecase "F8: Read & Submit Verified Reviews" as UC_Review
+  usecase "O1: Save to Wishlist" as UC_Wishlist
+  usecase "O4: Ask AI Chatbot Assistant" as UC_Chat
+
+  ' Buyer specific / F4, F5, F6
+  usecase "F4: Manage Cart (Add/Update/Total)" as UC_Cart
+  usecase "F5: Checkout with Mock Payment" as UC_Checkout
+  usecase "F6: View Order History & Status" as UC_BuyerOrders
+
+  ' Seller specific / F2, F6, O2, O3
+  usecase "F2: Manage Product Listings (CRUD)" as UC_SellerListings
+  usecase "F6: View Incoming Seller Orders" as UC_SellerOrders
+  usecase "O2: Update Fulfillment Status" as UC_OrderStatus
+  usecase "O3: View Sales Performance Dashboard" as UC_SellerMetrics
+
+  ' Admin specific / F7
+  usecase "F7: View All Users & Transactions" as UC_AdminUsersOrders
+  usecase "F7: Moderate / Remove Listings" as UC_AdminModerate
+}
+
+' Buyer associations
+buyer --> UC_Auth
+buyer --> UC_Browse
+buyer --> UC_Cart
+buyer --> UC_Checkout
+buyer --> UC_BuyerOrders
+buyer --> UC_Review
+buyer --> UC_Wishlist
+buyer --> UC_Chat
+
+' Seller associations
+seller --> UC_Auth
+seller --> UC_SellerListings
+seller --> UC_SellerOrders
+seller --> UC_OrderStatus
+seller --> UC_SellerMetrics
+
+' Admin associations
+admin --> UC_Auth
+admin --> UC_AdminUsersOrders
+admin --> UC_AdminModerate
+admin --> UC_OrderStatus
+
+@enduml

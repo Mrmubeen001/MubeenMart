@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" width="100%" height="100%">
+  <defs>
+    <style>
+      .title { font-family: system-ui, -apple-system, sans-serif; font-size: 18px; font-weight: bold; fill: #0f172a; }
+      .lifeline-header { font-family: system-ui, -apple-system, sans-serif; font-size: 12px; font-weight: bold; fill: #ffffff; text-anchor: middle; }
+      .lifeline { stroke: #cbd5e1; stroke-width: 1.5; stroke-dasharray: 4,4; }
+      .activation { fill: #f1f5f9; stroke: #64748b; stroke-width: 1; }
+      .msg-line { stroke: #2563eb; stroke-width: 1.5; }
+      .ret-line { stroke: #64748b; stroke-width: 1.2; stroke-dasharray: 4,4; }
+      .msg-text { font-family: system-ui, -apple-system, sans-serif; font-size: 11px; fill: #1e293b; }
+      .note-bg { fill: #fef3c7; stroke: #f59e0b; stroke-width: 1; rx: 4px; }
+      .note-text { font-family: ui-monospace, SFMono-Regular, monospace; font-size: 10px; fill: #78350f; }
+    </style>
+  </defs>
+
+  <text x="480" y="30" text-anchor="middle" class="title">MubeenMart — Place Order Sequence Diagram (D3)</text>
+
+  <!-- Lifelines -->
+  <!-- Browser -->
+  <g transform="translate(60, 60)">
+    <rect width="110" height="30" rx="4" fill="#0f172a" />
+    <text x="55" y="20" class="lifeline-header">Browser (JS)</text>
+    <line x1="55" y1="30" x2="55" y2="520" class="lifeline" />
+  </g>
+  <!-- Servlet -->
+  <g transform="translate(240, 60)">
+    <rect width="120" height="30" rx="4" fill="#2563eb" />
+    <text x="60" y="20" class="lifeline-header">CheckoutServlet</text>
+    <line x1="60" y1="30" x2="60" y2="520" class="lifeline" />
+  </g>
+  <!-- Service -->
+  <g transform="translate(430, 60)">
+    <rect width="110" height="30" rx="4" fill="#059669" />
+    <text x="55" y="20" class="lifeline-header">OrderService</text>
+    <line x1="55" y1="30" x2="55" y2="520" class="lifeline" />
+  </g>
+  <!-- Strategy -->
+  <g transform="translate(590, 60)">
+    <rect width="120" height="30" rx="4" fill="#d97706" />
+    <text x="60" y="20" class="lifeline-header">PaymentStrategy</text>
+    <line x1="60" y1="30" x2="60" y2="520" class="lifeline" />
+  </g>
+  <!-- DAO -->
+  <g transform="translate(740, 60)">
+    <rect width="100" height="30" rx="4" fill="#7c3aed" />
+    <text x="50" y="20" class="lifeline-header">Order/Cart DAO</text>
+    <line x1="50" y1="30" x2="50" y2="520" class="lifeline" />
+  </g>
+  <!-- Database -->
+  <g transform="translate(860, 60)">
+    <rect width="80" height="30" rx="4" fill="#334155" />
+    <text x="40" y="20" class="lifeline-header">H2 DB</text>
+    <line x1="40" y1="30" x2="40" y2="520" class="lifeline" />
+  </g>
+
+  <!-- Sequence Messages -->
+  <!-- 1. POST /checkout -->
+  <line x1="115" y1="120" x2="300" y2="120" class="msg-line" />
+  <polygon points="295,116 300,120 295,124" fill="#2563eb" />
+  <text x="130" y="114" class="msg-text">1. POST /checkout (address, method)</text>
+
+  <!-- 2. checkout() -->
+  <line x1="300" y1="150" x2="485" y2="150" class="msg-line" />
+  <polygon points="480,146 485,150 480,154" fill="#2563eb" />
+  <text x="315" y="144" class="msg-text">2. checkout(buyerId, reqDto)</text>
+
+  <!-- 3. Verify Cart & Stock -->
+  <line x1="485" y1="180" x2="790" y2="180" class="msg-line" />
+  <polygon points="785,176 790,180 785,184" fill="#2563eb" />
+  <text x="500" y="174" class="msg-text">3. findByUserId(buyerId)</text>
+
+  <line x1="790" y1="205" x2="900" y2="205" class="msg-line" />
+  <polygon points="895,201 900,205 895,209" fill="#2563eb" />
+  <text x="800" y="200" class="msg-text">SELECT cart</text>
+
+  <!-- 4. Mock Payment Strategy -->
+  <line x1="485" y1="240" x2="650" y2="240" class="msg-line" />
+  <polygon points="645,236 650,240 645,244" fill="#2563eb" />
+  <text x="495" y="234" class="msg-text">4. processPayment(total, UPI)</text>
+
+  <line x1="650" y1="265" x2="485" y2="265" class="ret-line" />
+  <polygon points="490,261 485,265 490,269" fill="#64748b" />
+  <text x="510" y="260" class="msg-text">PaymentResult(Authorized)</text>
+
+  <!-- Transaction Box -->
+  <rect x="440" y="285" width="470" height="150" class="note-bg" opacity="0.6"/>
+  <text x="450" y="302" class="note-text">[Transaction Boundary: conn.setAutoCommit(false)]</text>
+
+  <!-- 5. Create Order & Items -->
+  <line x1="485" y1="320" x2="790" y2="320" class="msg-line" />
+  <polygon points="785,316 790,320 785,324" fill="#2563eb" />
+  <text x="500" y="315" class="msg-text">5. orderDAO.create(conn, order)</text>
+
+  <!-- 6. Deduct Stock -->
+  <line x1="485" y1="350" x2="790" y2="350" class="msg-line" />
+  <polygon points="785,346 790,350 785,354" fill="#2563eb" />
+  <text x="500" y="345" class="msg-text">6. productDAO.deductStock(conn, items)</text>
+
+  <!-- 7. Clear Cart -->
+  <line x1="485" y1="380" x2="790" y2="380" class="msg-line" />
+  <polygon points="785,376 790,380 785,384" fill="#2563eb" />
+  <text x="500" y="375" class="msg-text">7. cartDAO.clearCart(conn, buyerId)</text>
+
+  <!-- 8. Commit -->
+  <line x1="485" y1="410" x2="900" y2="410" class="msg-line" stroke="#10b981" />
+  <polygon points="895,406 900,410 895,414" fill="#10b981" />
+  <text x="500" y="405" class="msg-text" fill="#047857">8. conn.commit() &amp; close</text>
+
+  <!-- 9. Return Order to Servlet -->
+  <line x1="485" y1="460" x2="300" y2="460" class="ret-line" />
+  <polygon points="305,456 300,460 305,464" fill="#64748b" />
+  <text x="340" y="455" class="msg-text">9. return Order entity</text>
+
+  <!-- 10. HTTP Response to Browser -->
+  <line x1="300" y1="490" x2="115" y2="490" class="ret-line" stroke="#10b981" />
+  <polygon points="120,486 115,490 120,494" fill="#10b981" />
+  <text x="135" y="485" class="msg-text" fill="#047857">10. 302 Redirect (/orders?placedOrderId={id})</text>
+</svg>
