@@ -181,5 +181,3 @@ For evaluation and testing, the database automatically initializes with pre-conf
 
 ---
 
-**Developed with academic integrity by Mohamed Mubeen**  
-*Anna University Regulations 2025*
