@@ -6,9 +6,6 @@
 [![Database](https://img.shields.io/badge/Database-H2%20(Server%2FEmbedded)-green.svg)](https://www.h2database.com/)
 [![License](https://img.shields.io/badge/Academic-Anna%20University%20R2025-blueviolet.svg)](#)
 
-> **Builder:** Mohamed Mubeen &bull; Solo Project &bull; Anna University Regulations 2025, Semester 3  
-> **Evaluation Window:** July 24 – October 10, 2026 &bull; **Release:** `v1.1.0`
-
 ---
 
 ## 📌 1. Problem Statement & Scope
