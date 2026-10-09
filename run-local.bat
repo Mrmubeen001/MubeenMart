@@ -1,22 +1,25 @@
 @echo off
 setlocal
+
 echo ========================================================
 echo         MubeenMart - Local Server Launcher
 echo ========================================================
 
 set "PROJECT_DIR=%~dp0"
-set "TOMCAT_DIR=C:\Users\Mohamed Mubeen\tools\apache-tomcat-9.0.86"
+set "JAVA_HOME=C:\Program Files\Microsoft\jdk-17.0.20.101-hotspot"
+set "CATALINA_HOME=C:\Users\Mohamed Mubeen\tools\apache-tomcat-9.0.86"
+set "CATALINA_BASE=C:\Users\Mohamed Mubeen\tools\apache-tomcat-9.0.86"
 set "WAR_FILE=%PROJECT_DIR%target\mubeenmart.war"
 
-if not exist "%TOMCAT_DIR%\bin\catalina.bat" (
-    echo [ERROR] Tomcat 9 not found at %TOMCAT_DIR%
+if not exist "%CATALINA_HOME%\bin\catalina.bat" (
+    echo [ERROR] Tomcat 9 not found at %CATALINA_HOME%
     pause
     exit /b 1
 )
 
 if not exist "%WAR_FILE%" (
     echo [INFO] Building MubeenMart WAR package...
-    call mvn clean package -DskipTests
+    call "C:\Users\Mohamed Mubeen\tools\apache-maven-3.9.6\bin\mvn.cmd" clean package -DskipTests
     if errorlevel 1 (
         echo [ERROR] Maven build failed.
         pause
@@ -25,8 +28,8 @@ if not exist "%WAR_FILE%" (
 )
 
 echo [INFO] Deploying mubeenmart.war to Tomcat ROOT...
-if exist "%TOMCAT_DIR%\webapps\ROOT" rd /s /q "%TOMCAT_DIR%\webapps\ROOT"
-copy /y "%WAR_FILE%" "%TOMCAT_DIR%\webapps\ROOT.war" > nul
+if exist "%CATALINA_HOME%\webapps\ROOT" rd /s /q "%CATALINA_HOME%\webapps\ROOT"
+copy /y "%WAR_FILE%" "%CATALINA_HOME%\webapps\ROOT.war" > nul
 
 echo ========================================================
 echo   MubeenMart is starting on: http://localhost:8088/
@@ -40,4 +43,5 @@ echo   Press Ctrl+C in this window to stop the server.
 echo ========================================================
 
 start http://localhost:8088/
-call "%TOMCAT_DIR%\bin\catalina.bat" run
+cd /d "%CATALINA_HOME%\bin"
+call catalina.bat run
