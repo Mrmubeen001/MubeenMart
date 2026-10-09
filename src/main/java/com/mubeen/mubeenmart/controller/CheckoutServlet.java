@@ -108,6 +108,15 @@ public class CheckoutServlet extends BaseServlet {
                 request.setAttribute("errorMessage", e.getMessage());
                 doGet(request, response);
             }
+        } catch (Exception e) {
+            logger.error("Unexpected checkout failure for buyer {}", user.getId(), e);
+            if (isJsonRequest(request)) {
+                sendJsonResponse(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
+                        ApiResponse.error("INTERNAL_ERROR", "Unexpected error processing order"));
+            } else {
+                request.setAttribute("errorMessage", "Unable to complete order placement. Please review your cart and try again.");
+                doGet(request, response);
+            }
         }
     }
 }

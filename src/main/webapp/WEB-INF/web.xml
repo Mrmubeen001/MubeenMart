@@ -6,9 +6,9 @@
          version="4.0">
 
     <display-name>MubeenMart</display-name>
-    <description>MubeenMart - Multi-Seller E-Commerce Marketplace (Anna University R2025)</description>
+    <description>MubeenMart - Modern Multi-Seller E-Commerce Marketplace</description>
 
-    <!-- Explicit session timeout: 30 minutes (Mandatory Engineering Rule 3) -->
+    <!-- Explicit session timeout: 30 minutes -->
     <session-config>
         <session-timeout>30</session-timeout>
         <cookie-config>
@@ -18,7 +18,7 @@
         <tracking-mode>COOKIE</tracking-mode>
     </session-config>
 
-    <!-- Custom error pages avoiding stack trace disclosure (Section 9 Security Requirement) -->
+    <!-- Custom error pages avoiding stack trace disclosure -->
     <error-page>
         <error-code>400</error-code>
         <location>/WEB-INF/views/error/400.jsp</location>

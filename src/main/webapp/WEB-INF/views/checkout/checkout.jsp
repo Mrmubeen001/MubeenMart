@@ -7,9 +7,9 @@
 <%@ include file="/WEB-INF/views/common/nav.jsp" %>
 
 <main class="main-content">
-    <h1 style="font-size: 1.75rem; font-weight: 700; margin-bottom: 0.5rem;">Checkout & Mock Payment</h1>
+    <h1 style="font-size: 1.75rem; font-weight: 700; margin-bottom: 0.5rem;">Checkout & Payment</h1>
     <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">
-        Complete your order with simulated payment confirmation (Requirement F5)
+        Complete your order with secure payment confirmation
     </p>
 
     <c:if test="${not empty errorMessage}">
@@ -17,7 +17,7 @@
     </c:if>
 
     <div style="display: grid; grid-template-columns: 1fr 380px; gap: 2rem; align-items: start;">
-        <!-- Shipping & Mock Payment Form -->
+        <!-- Shipping & Payment Form -->
         <div style="background: #fff; padding: 2rem; border-radius: var(--radius); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
             <form action="${pageContext.request.contextPath}/checkout" method="post">
                 <h2 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">
@@ -31,37 +31,37 @@
                 </div>
 
                 <h2 style="font-size: 1.25rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">
-                    2. Select Mock Payment Channel (Strategy Pattern)
+                    2. Select Payment Method
                 </h2>
 
                 <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.5rem;">
                     <label style="display: flex; align-items: flex-start; gap: 0.75rem; padding: 1rem; border: 1px solid var(--border-color); border-radius: 8px; cursor: pointer; background: #f8fafc;">
                         <input type="radio" name="paymentMethod" value="MOCK_UPI" checked style="margin-top: 3px;">
                         <div>
-                            <strong style="display: block;">📱 Mock Instant UPI</strong>
-                            <span style="font-size: 0.8rem; color: var(--text-muted);">Simulated instant authorization via Google Pay, PhonePe, or BHIM UPI</span>
+                            <strong style="display: block;">📱 Instant UPI</strong>
+                            <span style="font-size: 0.8rem; color: var(--text-muted);">Instant authorization via Google Pay, PhonePe, or BHIM UPI</span>
                         </div>
                     </label>
 
                     <label style="display: flex; align-items: flex-start; gap: 0.75rem; padding: 1rem; border: 1px solid var(--border-color); border-radius: 8px; cursor: pointer;">
                         <input type="radio" name="paymentMethod" value="MOCK_CARD" style="margin-top: 3px;">
                         <div>
-                            <strong style="display: block;">💳 Mock Credit / Debit Card</strong>
-                            <span style="font-size: 0.8rem; color: var(--text-muted);">Simulated card gateway authorization (Visa / MasterCard / RuPay)</span>
+                            <strong style="display: block;">💳 Credit / Debit Card</strong>
+                            <span style="font-size: 0.8rem; color: var(--text-muted);">Secure card gateway authorization (Visa / MasterCard / RuPay)</span>
                         </div>
                     </label>
 
                     <label style="display: flex; align-items: flex-start; gap: 0.75rem; padding: 1rem; border: 1px solid var(--border-color); border-radius: 8px; cursor: pointer;">
                         <input type="radio" name="paymentMethod" value="MOCK_NET_BANKING" style="margin-top: 3px;">
                         <div>
-                            <strong style="display: block;">🏦 Mock Net Banking</strong>
-                            <span style="font-size: 0.8rem; color: var(--text-muted);">Simulated direct bank transfer settlement</span>
+                            <strong style="display: block;">🏦 Net Banking</strong>
+                            <span style="font-size: 0.8rem; color: var(--text-muted);">Direct bank transfer settlement</span>
                         </div>
                     </label>
                 </div>
 
                 <div style="background: #f0fdf4; border: 1px solid #bbf7d0; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; font-size: 0.85rem; color: #166534;">
-                    🛡️ <strong>Academic Sandbox Mode:</strong> Real money is not charged. Submitting triggers server-side mock payment confirmation and generates verified order records.
+                    🛡️ <strong>Secure Sandbox Mode:</strong> Real money is not charged. Submitting processes simulated payment authorization and confirms your order.
                 </div>
 
                 <button type="submit" class="btn btn-primary btn-block" style="padding: 0.85rem; font-size: 1.05rem;">

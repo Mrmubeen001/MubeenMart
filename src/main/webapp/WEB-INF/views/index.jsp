@@ -28,7 +28,7 @@
         </div>
     </section>
 
-    <!-- Category Filter Bar (Requirement F3) -->
+    <!-- Category Filter Bar -->
     <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
         <div>
             <h2 style="font-size: 1.35rem; font-weight: 700;">
@@ -103,10 +103,15 @@
                 <div class="product-footer">
                     <c:choose>
                         <c:when test="${p.stockQty > 0}">
-                            <button type="button" class="btn btn-primary btn-sm btn-block ajax-add-cart" 
-                                    data-product-id="${p.id}">
-                                🛒 Add to Cart
-                            </button>
+                            <form action="${pageContext.request.contextPath}/cart" method="post" style="flex: 1; margin: 0;">
+                                <input type="hidden" name="action" value="add">
+                                <input type="hidden" name="productId" value="${p.id}">
+                                <input type="hidden" name="quantity" value="1">
+                                <button type="submit" class="btn btn-primary btn-sm btn-block ajax-add-cart" 
+                                        data-product-id="${p.id}">
+                                    🛒 Add to Cart
+                                </button>
+                            </form>
                         </c:when>
                         <c:otherwise>
                             <button type="button" class="btn btn-secondary btn-sm btn-block" disabled>
@@ -117,7 +122,8 @@
 
                     <form action="${pageContext.request.contextPath}/wishlist/add" method="post" style="margin: 0;">
                         <input type="hidden" name="productId" value="${p.id}">
-                        <button type="submit" class="btn btn-secondary btn-sm" title="Save to Wishlist">
+                        <button type="submit" class="btn btn-secondary btn-sm ajax-add-wishlist" 
+                                data-product-id="${p.id}" title="Save to Wishlist">
                             🤍
                         </button>
                     </form>

@@ -86,7 +86,7 @@
                 <div style="margin-top: 1rem; display: flex; gap: 0.5rem;">
                     <form action="${pageContext.request.contextPath}/wishlist/add" method="post">
                         <input type="hidden" name="productId" value="${product.id}">
-                        <button type="submit" class="btn btn-secondary btn-sm">
+                        <button type="submit" class="btn btn-secondary btn-sm ajax-add-wishlist" data-product-id="${product.id}">
                             <c:choose>
                                 <c:when test="${inWishlist}">❤️ Saved in Wishlist</c:when>
                                 <c:otherwise>🤍 Save to Wishlist</c:otherwise>
@@ -145,7 +145,7 @@
             </c:when>
             <c:otherwise>
                 <div style="background: #f8fafc; border: 1px dashed var(--border-color); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; font-size: 0.85rem; color: var(--text-muted);">
-                    ℹ️ <em>Verified Review Policy (Requirement F8): Star ratings and reviews are open to buyers who have purchased and received this product in a completed delivery.</em>
+                    ℹ️ <em>Verified Review Policy: Star ratings and reviews are open to buyers who have purchased and received this product in a completed delivery.</em>
                 </div>
             </c:otherwise>
         </c:choose>

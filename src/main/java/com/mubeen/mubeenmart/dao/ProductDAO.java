@@ -2,6 +2,7 @@ package com.mubeen.mubeenmart.dao;
 
 import com.mubeen.mubeenmart.model.Product;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
@@ -83,6 +84,17 @@ public interface ProductDAO {
      * @throws SQLException on database error
      */
     boolean deductStock(Long productId, int quantity) throws SQLException;
+
+    /**
+     * Decrements the stock quantity of a product atomically within a transaction.
+     *
+     * @param conn active database connection
+     * @param productId product ID
+     * @param quantity quantity to deduct
+     * @return true if successfully deducted, false if insufficient stock
+     * @throws SQLException on database error
+     */
+    boolean deductStock(Connection conn, Long productId, int quantity) throws SQLException;
 
     /**
      * Retrieves distinct categories present in the catalog.

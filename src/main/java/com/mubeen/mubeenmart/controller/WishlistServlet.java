@@ -63,13 +63,13 @@ public class WishlistServlet extends BaseServlet {
                 sendJsonResponse(response, HttpServletResponse.SC_UNAUTHORIZED,
                         ApiResponse.error("UNAUTHORIZED", "Please log in to manage your wishlist"));
             } else {
-                response.sendRedirect(request.getContextPath() + "/login");
+                response.sendRedirect(request.getContextPath() + "/login?redirect=/wishlist");
             }
             return;
         }
 
         String action = request.getPathInfo();
-        if (action == null) {
+        if (action == null || "/".equals(action) || action.trim().isEmpty()) {
             action = request.getParameter("action");
         }
 

@@ -23,6 +23,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     body: `action=add&productId=${productId}&quantity=1`
                 });
 
+                if (response.status === 401) {
+                    window.location.href = `${contextPath}/login?redirect=${encodeURIComponent(window.location.pathname)}`;
+                    return;
+                }
+
                 if (response.redirected) {
                     window.location.href = response.url;
                     return;
@@ -53,6 +58,55 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             } catch (err) {
                 console.error('Add to cart failed:', err);
+                btn.textContent = originalText;
+                btn.disabled = false;
+            }
+        });
+    });
+
+    // Quick Add to Wishlist with AJAX
+    const ajaxWishlistButtons = document.querySelectorAll('.ajax-add-wishlist');
+    ajaxWishlistButtons.forEach(btn => {
+        btn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            const productId = btn.getAttribute('data-product-id');
+            const originalText = btn.textContent;
+            btn.textContent = '...';
+            btn.disabled = true;
+
+            try {
+                const contextPath = window.CONTEXT_PATH || '';
+                const response = await fetch(`${contextPath}/wishlist/add`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'Accept': 'application/json'
+                    },
+                    body: `productId=${productId}`
+                });
+
+                if (response.status === 401) {
+                    window.location.href = `${contextPath}/login?redirect=${encodeURIComponent(window.location.pathname)}`;
+                    return;
+                }
+
+                if (response.redirected) {
+                    window.location.href = response.url;
+                    return;
+                }
+
+                const data = await response.json();
+                if (data.success) {
+                    btn.textContent = '❤️';
+                    btn.title = 'Saved in Wishlist';
+                    btn.disabled = false;
+                } else {
+                    alert(data.error ? data.error.message : 'Failed to save to wishlist');
+                    btn.textContent = originalText;
+                    btn.disabled = false;
+                }
+            } catch (err) {
+                console.error('Wishlist action failed:', err);
                 btn.textContent = originalText;
                 btn.disabled = false;
             }

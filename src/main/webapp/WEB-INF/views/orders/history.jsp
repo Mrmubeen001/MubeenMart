@@ -9,7 +9,7 @@
 <main class="main-content">
     <h1 style="font-size: 1.75rem; font-weight: 700; margin-bottom: 0.5rem;">My Orders</h1>
     <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">
-        Track delivery progress and review past purchases (Requirement F6)
+        Track delivery progress and review past purchases
     </p>
 
     <c:if test="${not empty successMessage}">

@@ -26,7 +26,7 @@
             </div>
         </div>
 
-        <!-- Workflow Status Tracker (Requirement O2) -->
+        <!-- Workflow Status Tracker -->
         <div style="display: flex; justify-content: space-around; margin: 2rem 0; padding: 1rem; background: #f8fafc; border-radius: 8px; border: 1px solid var(--border-color); text-align: center;">
             <div style="flex: 1; opacity: ${order.status eq 'PENDING' || order.status eq 'CONFIRMED' || order.status eq 'SHIPPED' || order.status eq 'DELIVERED' ? '1' : '0.4'};">
                 <div style="font-size: 1.5rem;">📝</div>

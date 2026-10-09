@@ -65,7 +65,7 @@ public class OrderServiceImpl implements OrderService {
             BigDecimal totalAmount = BigDecimal.ZERO;
             for (CartItem ci : cartItems) {
                 Product product = productDAO.findById(ci.getProductId())
-                        .orElseThrow(() -> new ResourceNotFoundException("Product '" + ci.getProduct().getName() + "' no longer exists"));
+                        .orElseThrow(() -> new ResourceNotFoundException("Product with ID " + ci.getProductId() + " no longer exists"));
                 if (product.getStockQty() < ci.getQuantity()) {
                     throw new ConflictException("Insufficient stock for '" + product.getName() + "'. Available: " + product.getStockQty());
                 }
@@ -91,18 +91,20 @@ public class OrderServiceImpl implements OrderService {
                     createdOrder = orderDAO.create(conn, order);
 
                     for (CartItem ci : cartItems) {
+                        Product product = productDAO.findById(ci.getProductId())
+                                .orElseThrow(() -> new ResourceNotFoundException("Product ID " + ci.getProductId() + " not found"));
                         OrderItem item = new OrderItem(
                                 null,
                                 createdOrder.getId(),
                                 ci.getProductId(),
                                 ci.getQuantity(),
-                                ci.getProduct().getPrice(),
+                                product.getPrice(),
                                 LocalDateTime.now()
                         );
                         orderItemDAO.create(conn, item);
 
-                        // Atomically deduct product stock
-                        boolean deducted = productDAO.deductStock(ci.getProductId(), ci.getQuantity());
+                        // Atomically deduct product stock within transaction
+                        boolean deducted = productDAO.deductStock(conn, ci.getProductId(), ci.getQuantity());
                         if (!deducted) {
                             throw new ConflictException("Stock deduction failed for product ID " + ci.getProductId());
                         }

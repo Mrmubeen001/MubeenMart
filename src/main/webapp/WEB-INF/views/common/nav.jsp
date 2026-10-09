@@ -7,7 +7,7 @@
             🛍️ MubeenMart <span class="brand-badge">Marketplace</span>
         </a>
 
-        <!-- Search & Filter Form (Requirement F3) -->
+        <!-- Search & Filter Form -->
         <form action="${pageContext.request.contextPath}/home" method="get" class="search-bar">
             <select name="category" aria-label="Product Category">
                 <option value="ALL">All Categories</option>

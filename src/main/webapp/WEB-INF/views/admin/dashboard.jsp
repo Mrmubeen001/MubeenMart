@@ -10,7 +10,7 @@
     <div style="margin-bottom: 1.5rem;">
         <h1 style="font-size: 1.75rem; font-weight: 700; color: #581c87;">🛡️ Marketplace Administration Portal</h1>
         <p style="color: var(--text-muted); font-size: 0.9rem;">
-            Central management for users, all system transactions, and catalog moderation (Requirement F7)
+            Central management for users, all system transactions, and catalog moderation
         </p>
     </div>
 

@@ -116,12 +116,29 @@ public class AppContextListener implements ServletContextListener {
                 logger.info("Products table not found. Applying database schema and seed data...");
                 executeSqlScript(conn, "schema.sql");
                 executeSqlScript(conn, "seed.sql");
+                syncSequences(conn);
                 logger.info("Database schema and seed data applied successfully.");
             } else {
+                syncSequences(conn);
                 logger.info("Database schema already initialized.");
             }
         } catch (Exception e) {
             logger.error("Failed to initialize database schema", e);
+        }
+    }
+
+    private void syncSequences(Connection conn) {
+        String[] tables = {"users", "products", "orders", "order_items", "reviews", "cart_items", "wishlist_items"};
+        for (String table : tables) {
+            try (Statement s = conn.createStatement();
+                 ResultSet rs = s.executeQuery("SELECT COALESCE(MAX(id), 0) + 1 FROM " + table)) {
+                if (rs.next()) {
+                    long nextId = rs.getLong(1);
+                    s.execute("ALTER TABLE " + table + " ALTER COLUMN id RESTART WITH " + nextId);
+                }
+            } catch (Exception e) {
+                logger.warn("Could not sync identity sequence for table {}: {}", table, e.getMessage());
+            }
         }
     }
 

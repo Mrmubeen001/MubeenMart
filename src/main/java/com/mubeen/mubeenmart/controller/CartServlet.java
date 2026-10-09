@@ -75,7 +75,7 @@ public class CartServlet extends BaseServlet {
         }
 
         String action = request.getPathInfo();
-        if (action == null) {
+        if (action == null || "/".equals(action) || action.trim().isEmpty()) {
             action = request.getParameter("action");
         }
 

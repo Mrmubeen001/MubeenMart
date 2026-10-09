@@ -54,3 +54,12 @@ INSERT INTO cart_items (id, user_id, product_id, quantity, created_at) VALUES
 -- 7. Wishlist Items (Buyer 4 wishlist)
 INSERT INTO wishlist_items (id, user_id, product_id, created_at) VALUES
 (1, 4, 3, TIMESTAMP '2026-08-20 17:05:00');
+
+-- 8. Synchronize identity sequences past seed IDs
+ALTER TABLE users ALTER COLUMN id RESTART WITH 20;
+ALTER TABLE products ALTER COLUMN id RESTART WITH 30;
+ALTER TABLE orders ALTER COLUMN id RESTART WITH 10;
+ALTER TABLE order_items ALTER COLUMN id RESTART WITH 10;
+ALTER TABLE reviews ALTER COLUMN id RESTART WITH 10;
+ALTER TABLE cart_items ALTER COLUMN id RESTART WITH 10;
+ALTER TABLE wishlist_items ALTER COLUMN id RESTART WITH 10;

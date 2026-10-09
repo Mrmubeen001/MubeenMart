@@ -19,7 +19,7 @@
     <c:if test="${param.removed eq 'true'}">
         <div class="alert alert-success">Item removed from your cart.</div>
     </c:if>
-    <c:if test="${param.empty eq 'true'}">
+    <c:if test="${param['empty'] eq 'true'}">
         <div class="alert alert-warning">Your cart is currently empty. Please add items before proceeding to checkout.</div>
     </c:if>
 
@@ -84,7 +84,7 @@
                     </table>
                 </div>
 
-                <!-- Order Running Total Card (Requirement F4) -->
+                <!-- Order Running Total Card -->
                 <div style="background: #fff; border: 1px solid var(--border-color); border-radius: var(--radius); padding: 1.5rem; box-shadow: var(--shadow-sm);">
                     <h2 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">
                         Order Summary

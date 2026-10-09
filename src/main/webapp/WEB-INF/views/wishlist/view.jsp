@@ -9,7 +9,7 @@
 <main class="main-content">
     <h1 style="font-size: 1.75rem; font-weight: 700; margin-bottom: 0.5rem;">Saved Wishlist</h1>
     <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">
-        Your personal save-for-later collection (Requirement O1)
+        Your personal save-for-later collection
     </p>
 
     <c:if test="${not empty errorMessage}">

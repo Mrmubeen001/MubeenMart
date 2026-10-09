@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!-- Floating AI Chatbot Assistant Widget (Phase 3 Requirement) -->
+<!-- Floating Customer Support Assistant Widget -->
 <button id="chatWidgetBtn" class="chat-widget-btn" aria-label="Open AI Assistant">
     💬
 </button>

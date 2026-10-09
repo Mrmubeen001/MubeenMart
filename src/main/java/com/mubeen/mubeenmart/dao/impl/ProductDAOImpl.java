@@ -164,14 +164,20 @@ public class ProductDAOImpl implements ProductDAO {
     }
 
     @Override
-    public boolean deductStock(Long productId, int quantity) throws SQLException {
+    public boolean deductStock(Connection conn, Long productId, int quantity) throws SQLException {
         String sql = "UPDATE products SET stock_qty = stock_qty - ? WHERE id = ? AND stock_qty >= ?";
-        try (Connection conn = DatabaseConnectionManager.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, quantity);
             ps.setLong(2, productId);
             ps.setInt(3, quantity);
             return ps.executeUpdate() > 0;
+        }
+    }
+
+    @Override
+    public boolean deductStock(Long productId, int quantity) throws SQLException {
+        try (Connection conn = DatabaseConnectionManager.getConnection()) {
+            return deductStock(conn, productId, quantity);
         }
     }
 

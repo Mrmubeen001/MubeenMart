@@ -37,7 +37,7 @@
             </div>
 
             <div class="form-group">
-                <label class="form-label">Account Role (Requirement F1)</label>
+                <label class="form-label">Account Role</label>
                 <div style="display: flex; gap: 1.5rem; margin-top: 0.35rem;">
                     <label style="display: flex; align-items: center; gap: 0.35rem; font-size: 0.9rem; cursor: pointer;">
                         <input type="radio" name="role" value="BUYER" ${empty role || role eq 'BUYER' ? 'checked' : ''}>
