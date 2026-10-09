@@ -15,6 +15,7 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
@@ -104,14 +105,15 @@ public class AppContextListener implements ServletContextListener {
     private void initializeDatabase(HikariDataSource ds) {
         try (Connection conn = ds.getConnection()) {
             boolean tablesExist = false;
-            try (ResultSet rs = conn.getMetaData().getTables(null, null, "USERS", null)) {
-                if (rs.next()) {
-                    tablesExist = true;
-                }
+            try (Statement stmt = conn.createStatement();
+                 ResultSet rs = stmt.executeQuery("SELECT 1 FROM products WHERE 1=0")) {
+                tablesExist = true;
+            } catch (SQLException e) {
+                tablesExist = false;
             }
 
             if (!tablesExist) {
-                logger.info("Tables not found. Applying database schema and seed data...");
+                logger.info("Products table not found. Applying database schema and seed data...");
                 executeSqlScript(conn, "schema.sql");
                 executeSqlScript(conn, "seed.sql");
                 logger.info("Database schema and seed data applied successfully.");
@@ -140,7 +142,10 @@ public class AppContextListener implements ServletContextListener {
                     }
                     sql.append(line).append("\n");
                     if (trimmed.endsWith(";")) {
-                        String statementStr = sql.toString().replace(";", "").trim();
+                        String statementStr = sql.toString().trim();
+                        if (statementStr.endsWith(";")) {
+                            statementStr = statementStr.substring(0, statementStr.length() - 1).trim();
+                        }
                         if (!statementStr.isEmpty()) {
                             stmt.execute(statementStr);
                         }

@@ -55,6 +55,8 @@ public class HomeServlet extends BaseServlet {
         } catch (Exception e) {
             logger.error("Failed to render marketplace home page", e);
             request.setAttribute("errorMessage", "Unable to load product listings. Please refresh.");
+            request.setAttribute("products", java.util.Collections.emptyList());
+            request.setAttribute("categories", java.util.Collections.emptyList());
             request.getRequestDispatcher("/WEB-INF/views/index.jsp").forward(request, response);
         }
     }

@@ -9,7 +9,9 @@ INSERT INTO users (id, name, email, password_hash, role, created_at) VALUES
 (2, 'Apex Electronics Store', 'seller@mubeenmart.com', '$2a$10$vEuAcVc0DHKelwMydW2KFe/aGMkWMJzJ4sBc7VeAHiF74Jcqp6FkG', 'SELLER', TIMESTAMP '2026-07-29 11:30:00'),
 (3, 'Urban Artisan Collective', 'artisan@mubeenmart.com', '$2a$10$vEuAcVc0DHKelwMydW2KFe/aGMkWMJzJ4sBc7VeAHiF74Jcqp6FkG', 'SELLER', TIMESTAMP '2026-07-30 09:15:00'),
 (4, 'Mohamed Buyer', 'buyer@mubeenmart.com', '$2a$10$vEuAcVc0DHKelwMydW2KFe/aGMkWMJzJ4sBc7VeAHiF74Jcqp6FkG', 'BUYER', TIMESTAMP '2026-08-01 14:20:00'),
-(5, 'Priya Sharma', 'priya@example.com', '$2a$10$vEuAcVc0DHKelwMydW2KFe/aGMkWMJzJ4sBc7VeAHiF74Jcqp6FkG', 'BUYER', TIMESTAMP '2026-08-02 16:45:00');
+(5, 'Priya Sharma', 'priya@example.com', '$2a$10$vEuAcVc0DHKelwMydW2KFe/aGMkWMJzJ4sBc7VeAHiF74Jcqp6FkG', 'BUYER', TIMESTAMP '2026-08-02 16:45:00'),
+(6, 'Apex Electronics Store (Alt)', 'seller1@mubeenmart.com', '$2a$10$vEuAcVc0DHKelwMydW2KFe/aGMkWMJzJ4sBc7VeAHiF74Jcqp6FkG', 'SELLER', TIMESTAMP '2026-07-29 11:30:00'),
+(7, 'Mohamed Buyer (Alt)', 'buyer1@mubeenmart.com', '$2a$10$vEuAcVc0DHKelwMydW2KFe/aGMkWMJzJ4sBc7VeAHiF74Jcqp6FkG', 'BUYER', TIMESTAMP '2026-08-01 14:20:00');
 
 -- 2. Products
 INSERT INTO products (id, seller_id, name, description, price, stock_qty, category, image_url, created_at) VALUES

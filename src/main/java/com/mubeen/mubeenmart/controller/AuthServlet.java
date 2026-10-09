@@ -98,9 +98,9 @@ public class AuthServlet extends BaseServlet {
             User user = userService.login(email, password);
 
             // Mandatory Engineering Rule 3: Session management via HttpSession.
-            // Regenerate session ID on login to protect against session fixation attacks.
-            request.changeSessionId();
+            // Ensure session exists and regenerate session ID on login to protect against session fixation attacks.
             HttpSession session = request.getSession(true);
+            request.changeSessionId();
             session.setMaxInactiveInterval(SESSION_TIMEOUT_SECONDS);
             session.setAttribute("currentUser", user);
 
@@ -126,6 +126,17 @@ public class AuthServlet extends BaseServlet {
                 sendJsonResponse(response, e.getStatusCode(), ApiResponse.error("AUTH_ERROR", e.getMessage()));
             } else {
                 request.setAttribute("errorMessage", e.getMessage());
+                request.setAttribute("email", email);
+                request.setAttribute("redirectUrl", redirect);
+                request.getRequestDispatcher("/WEB-INF/views/auth/login.jsp").forward(request, response);
+            }
+        } catch (Exception e) {
+            logger.error("Unexpected error during login for {}", email, e);
+            if (isJsonRequest(request)) {
+                sendJsonResponse(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
+                        ApiResponse.error("SERVER_ERROR", "Login encountered an unexpected error. Please try again."));
+            } else {
+                request.setAttribute("errorMessage", "Login failed due to a server error. Please try again.");
                 request.setAttribute("email", email);
                 request.setAttribute("redirectUrl", redirect);
                 request.getRequestDispatcher("/WEB-INF/views/auth/login.jsp").forward(request, response);
