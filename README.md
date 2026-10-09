@@ -4,7 +4,6 @@
 [![Java 17](https://img.shields.io/badge/JDK-17%20LTS-orange.svg)](https://adoptium.net)
 [![Servlet 4.0](https://img.shields.io/badge/Servlet%20API-4.0%20(Tomcat%209)-blue.svg)](https://tomcat.apache.org/)
 [![Database](https://img.shields.io/badge/Database-H2%20(Server%2FEmbedded)-green.svg)](https://www.h2database.com/)
-[![License](https://img.shields.io/badge/Academic-Anna%20University%20R2025-blueviolet.svg)](#)
 
 ---
 
