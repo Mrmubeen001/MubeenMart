@@ -23,8 +23,8 @@ RUN rm -rf /usr/local/tomcat/webapps/*
 # Deploy MubeenMart as default ROOT context
 COPY --from=builder /build/target/mubeenmart.war /usr/local/tomcat/webapps/ROOT.war
 
-# Default Tomcat HTTP port
+# Expose default HTTP port
 EXPOSE 8080
 
-# Launch Tomcat in foreground
-CMD ["catalina.sh", "run"]
+# Support dynamic cloud PaaS port assignment (e.g. Render, Railway) via $PORT
+CMD ["sh", "-c", "sed -i \"s/port=\\\"8080\\\"/port=\\\"${PORT:-8080}\\\"/g\" /usr/local/tomcat/conf/server.xml && catalina.sh run"]

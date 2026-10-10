@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: mubeenmart
+    runtime: docker
+    plan: free
+    region: oregon
+    branch: main
+    healthCheckPath: /api/v1/health
+    autoDeploy: true
+    envVars:
+      - key: AI_CHATBOT_PROVIDER
+        value: mock
