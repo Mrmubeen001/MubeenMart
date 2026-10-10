@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MubeenMart — Multi-Seller E-Commerce Marketplace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛍️</text></svg>">
 </head>
@@ -25,7 +28,7 @@
                 <option value="Home">Home</option>
                 <option value="Books">Books</option>
             </select>
-            <input type="text" id="searchInput" placeholder="Search products, brands, essentials..." aria-label="Search Query">
+            <input type="text" id="searchInput" placeholder="Search headphones, smartwatches, books..." aria-label="Search Query">
             <button type="submit">Search</button>
         </form>
 
@@ -42,9 +45,14 @@
                 🛒 Cart <span id="navbarCartCount" class="cart-badge">0</span>
             </a>
 
-            <a class="nav-link" onclick="openArchitecture()" title="System Architecture & Diagrams" style="color: #9333ea; font-weight: 600;">
+            <a class="nav-link" onclick="openArchitecture()" title="System Architecture & Diagrams" style="color: #8b5cf6;">
                 📐 Architecture
             </a>
+
+            <!-- Dark / Light Theme Toggle -->
+            <button class="theme-toggle-btn" onclick="toggleTheme()" title="Toggle Dark / Light Theme" aria-label="Toggle Theme">
+                <span id="themeToggleIcon">🌙</span>
+            </button>
 
             <span class="nav-link" style="color: var(--text-muted); font-size: 0.85rem;">
                 👤 Mohamed Buyer
@@ -57,28 +65,28 @@
 <main class="main-content">
     <!-- Hero Banner -->
     <section class="hero-banner">
-        <h1>Shop Verified Quality on MubeenMart</h1>
-        <p>Explore electronics, sustainable fashion, study handbooks, and home goods directly from independent sellers with transparent reviews and simulated instant checkout.</p>
-        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-            <button class="btn btn-primary" onclick="filterCategory('ALL')">Browse All Products</button>
-            <button class="btn btn-secondary" style="background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.2);" onclick="openArchitecture()">View System Architecture</button>
-            <a href="https://github.com/Mrmubeen001/MubeenMart" target="_blank" class="btn btn-secondary" style="background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.2);">GitHub Repository &rarr;</a>
+        <h1>Discover Verified Quality on MubeenMart</h1>
+        <p>Explore premium audio, wearable tech, sustainable streetwear, and engineering handbooks directly from independent sellers with verified ratings and instant checkout.</p>
+        <div style="display: flex; gap: 0.85rem; flex-wrap: wrap;">
+            <button class="btn btn-primary" onclick="filterCategory('ALL')">Explore Catalog &rarr;</button>
+            <button class="btn btn-secondary" style="background: rgba(255,255,255,0.12); color: #fff; border-color: rgba(255,255,255,0.25);" onclick="openArchitecture()">View System Architecture</button>
+            <a href="https://github.com/Mrmubeen001/MubeenMart" target="_blank" class="btn btn-secondary" style="background: rgba(255,255,255,0.12); color: #fff; border-color: rgba(255,255,255,0.25);">GitHub Source &rarr;</a>
         </div>
     </section>
 
     <!-- Category Filter Bar -->
-    <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
+    <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem;">
         <div>
-            <h2 style="font-size: 1.35rem; font-weight: 700;">Featured Marketplace Catalog</h2>
-            <p style="color: var(--text-muted); font-size: 0.875rem;">Verified listings from independent merchants</p>
+            <h2 style="font-size: 1.5rem; font-weight: 800;">Featured Marketplace Catalog</h2>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">Verified listings from independent merchants with fast express dispatch</p>
         </div>
 
         <div class="category-pills">
             <button class="category-pill active" onclick="filterCategory('ALL', this)">All Items</button>
-            <button class="category-pill" onclick="filterCategory('Electronics', this)">Electronics</button>
-            <button class="category-pill" onclick="filterCategory('Fashion', this)">Fashion</button>
-            <button class="category-pill" onclick="filterCategory('Home', this)">Home & Living</button>
-            <button class="category-pill" onclick="filterCategory('Books', this)">Engineering Books</button>
+            <button class="category-pill" onclick="filterCategory('Electronics', this)">⚡ Electronics</button>
+            <button class="category-pill" onclick="filterCategory('Fashion', this)">👕 Fashion</button>
+            <button class="category-pill" onclick="filterCategory('Home', this)">🏡 Home & Living</button>
+            <button class="category-pill" onclick="filterCategory('Books', this)">📚 Engineering Books</button>
         </div>
     </div>
 
@@ -98,7 +106,7 @@
 <div id="cartModal" class="modal-overlay">
     <div class="modal-content">
         <button class="modal-close" onclick="closeModal('cartModal')">&times;</button>
-        <h2 style="font-size: 1.35rem; font-weight: 700; margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">
+        <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 1.25rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.6rem;">
             🛒 Shopping Cart
         </h2>
         <div id="cartModalBody"></div>
@@ -109,7 +117,7 @@
 <div id="checkoutModal" class="modal-overlay">
     <div class="modal-content">
         <button class="modal-close" onclick="closeModal('checkoutModal')">&times;</button>
-        <h2 style="font-size: 1.35rem; font-weight: 700; margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">
+        <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 1.25rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.6rem;">
             💳 Checkout & Payment Authorization
         </h2>
         <div id="checkoutModalBody"></div>
@@ -120,7 +128,7 @@
 <div id="ordersModal" class="modal-overlay">
     <div class="modal-content">
         <button class="modal-close" onclick="closeModal('ordersModal')">&times;</button>
-        <h2 style="font-size: 1.35rem; font-weight: 700; margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">
+        <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 1.25rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.6rem;">
             📦 My Order History & Status Tracker
         </h2>
         <div id="ordersModalBody"></div>
@@ -131,7 +139,7 @@
 <div id="wishlistModal" class="modal-overlay">
     <div class="modal-content">
         <button class="modal-close" onclick="closeModal('wishlistModal')">&times;</button>
-        <h2 style="font-size: 1.35rem; font-weight: 700; margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">
+        <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 1.25rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.6rem;">
             🤍 Saved Wishlist Collection
         </h2>
         <div id="wishlistModalBody"></div>
@@ -140,25 +148,25 @@
 
 <!-- Architecture & Specification Modal -->
 <div id="architectureModal" class="modal-overlay">
-    <div class="modal-content" style="max-width: 850px;">
+    <div class="modal-content" style="max-width: 880px;">
         <button class="modal-close" onclick="closeModal('architectureModal')">&times;</button>
-        <h2 style="font-size: 1.35rem; font-weight: 700; margin-bottom: 0.5rem;">
+        <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 0.5rem;">
             📐 System Architecture & Design Diagrams
         </h2>
         <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem;">
             Anna University R2025 Semester 3 &bull; Java Servlets &bull; JDBC &bull; Apache Tomcat 9
         </p>
 
-        <div style="display: flex; gap: 0.5rem; border-bottom: 1px solid var(--border-color); margin-bottom: 1.5rem;">
+        <div style="display: flex; gap: 0.5rem; border-bottom: 1px solid var(--border-color); margin-bottom: 1.5rem; flex-wrap: wrap;">
             <button class="btn btn-secondary btn-sm" onclick="showDiagram('d1', this)" style="background: var(--primary); color: #fff;">D1: ER Diagram</button>
             <button class="btn btn-secondary btn-sm" onclick="showDiagram('d2', this)">D2: Use Case Diagram</button>
             <button class="btn btn-secondary btn-sm" onclick="showDiagram('d3', this)">D3: Sequence Diagram</button>
             <button class="btn btn-secondary btn-sm" onclick="showDiagram('stack', this)">Tech Stack</button>
         </div>
 
-        <div id="diagramContainer" style="text-align: center; background: #f8fafc; border: 1px solid var(--border-color); border-radius: 8px; padding: 1.5rem; min-height: 350px;">
-            <img id="diagramImg" src="diagrams/D1_ER_Diagram.svg" alt="Architecture Diagram" style="max-width: 100%; height: auto; border-radius: 4px;">
-            <div id="diagramText" style="display: none; text-align: left; font-size: 0.9rem; line-height: 1.6;"></div>
+        <div id="diagramContainer" style="text-align: center; background: var(--bg-main); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem; min-height: 380px;">
+            <img id="diagramImg" src="diagrams/D1_ER_Diagram.svg" alt="Architecture Diagram" style="max-width: 100%; height: auto; border-radius: 6px;">
+            <div id="diagramText" style="display: none; text-align: left; font-size: 0.9rem; line-height: 1.65;"></div>
         </div>
     </div>
 </div>
@@ -166,11 +174,13 @@
 <script>
 function showDiagram(type, btn) {
     document.querySelectorAll('#architectureModal .btn').forEach(b => {
-        b.style.background = '#fff';
+        b.style.background = 'var(--bg-card)';
         b.style.color = 'var(--text-main)';
+        b.style.borderColor = 'var(--border-color)';
     });
     btn.style.background = 'var(--primary)';
     btn.style.color = '#fff';
+    btn.style.borderColor = 'transparent';
 
     const img = document.getElementById('diagramImg');
     const txt = document.getElementById('diagramText');
@@ -191,8 +201,8 @@ function showDiagram(type, btn) {
         img.style.display = 'none';
         txt.style.display = 'block';
         txt.innerHTML = `
-            <h4 style="font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--secondary);">Technical Specification</h4>
-            <ul style="padding-left: 1.25rem;">
+            <h4 style="font-size: 1.15rem; margin-bottom: 0.75rem; color: var(--text-main);">Technical Architecture Specification</h4>
+            <ul style="padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem; color: var(--text-main);">
                 <li><strong>Backend Framework:</strong> Java 17 LTS, Java Servlets (Servlet 4.0 API, javax.servlet.*)</li>
                 <li><strong>Servlet Container:</strong> Apache Tomcat 9.0.x (WAR Packaging)</li>
                 <li><strong>Database:</strong> H2 Database 2.2.x with HikariCP Connection Pooling</li>
@@ -214,14 +224,14 @@ function showDiagram(type, btn) {
     <div class="chat-header">
         <div>
             <h4>🤖 MubeenMart Assistant</h4>
-            <span style="font-size: 0.7rem; color: #94a3b8;">Instant Customer Support</span>
+            <span style="font-size: 0.72rem; color: #94a3b8;">Instant Customer Support</span>
         </div>
-        <button id="chatCloseBtn" class="modal-close" style="position: static; width: 28px; height: 28px; background: rgba(255,255,255,0.15); color: #fff;">&times;</button>
+        <button id="chatCloseBtn" class="modal-close" style="position: static; width: 28px; height: 28px; background: rgba(255,255,255,0.15); color: #fff; border: none;">&times;</button>
     </div>
 
     <div id="chatMessages" class="chat-messages">
         <div class="chat-msg bot">
-            Hello! I am your MubeenMart AI assistant. How can I help you with products, order status, or seller registration today?
+            Hello! I am your MubeenMart AI assistant. How can I help you with products, order tracking, or mock payment checkout today?
         </div>
     </div>
 
@@ -242,12 +252,12 @@ function showDiagram(type, btn) {
 
 <!-- Footer -->
 <footer>
-    <div style="max-width: 1200px; margin: 0 auto;">
-        <p><strong>MubeenMart</strong> — Multi-Seller E-Commerce Marketplace Platform</p>
-        <p style="margin-top: 0.25rem;">Developed by Mohamed Mubeen &bull; Anna University R2025 Regulations &bull; Java Servlets &bull; JDBC &bull; Apache Tomcat</p>
-        <p style="margin-top: 0.5rem; font-size: 0.75rem; color: #94a3b8;">
-            <a href="https://github.com/Mrmubeen001/MubeenMart" target="_blank" style="color: #64748b; text-decoration: underline;">GitHub Repository</a> &bull;
-            Hosted on GitHub Pages &bull; Academic Sandbox Simulation
+    <div style="max-width: 1240px; margin: 0 auto;">
+        <p style="font-weight: 700; font-size: 1.05rem; color: var(--text-main);">MubeenMart — Multi-Seller E-Commerce Marketplace Platform</p>
+        <p style="margin-top: 0.35rem;">Developed by Mohamed Mubeen &bull; Anna University R2025 Regulations &bull; Java Servlets &bull; JDBC &bull; Apache Tomcat</p>
+        <p style="margin-top: 0.75rem; font-size: 0.8rem; color: var(--text-muted);">
+            <a href="https://github.com/Mrmubeen001/MubeenMart" target="_blank" style="text-decoration: underline;">GitHub Repository</a> &bull;
+            Hosted on GitHub Pages &bull; Academic Sandbox Mode
         </p>
     </div>
 </footer>
