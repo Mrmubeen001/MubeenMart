@@ -142,6 +142,18 @@ Database ──────────► H2 Database (Server / Embedded / In-M
      http://localhost:8080/mubeenmart/
      ```
 
+### Cloud Container Deployment (Render, Railway, Fly.io)
+A production multi-stage `Dockerfile` is included for zero-configuration cloud deployment:
+
+1. **Deploy with 1 Click:**
+   - Link repository `https://github.com/Mrmubeen001/MubeenMart` to **Render** or **Railway**.
+   - The platform auto-detects `Dockerfile`, builds the WAR via Maven, and deploys to Tomcat 9.
+2. **Local / VPS Docker Execution:**
+   ```bash
+   docker build -t mubeenmart .
+   docker run -p 8080:8080 mubeenmart
+   ```
+
 ---
 
 ## 🔑 6. Evaluation Seed Accounts

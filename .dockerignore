@@ -1,0 +1,8 @@
+target/
+.git/
+.github/
+.idea/
+*.log
+*.bat
+*.ps1
+cookies.txt
