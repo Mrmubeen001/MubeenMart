@@ -1,9 +1,12 @@
 # 🛍️ MubeenMart — Multi-Seller E-Commerce Marketplace
 
 [![build-and-test](https://github.com/Mrmubeen001/MubeenMart/actions/workflows/build.yml/badge.svg)](https://github.com/Mrmubeen001/MubeenMart/actions/workflows/build.yml)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-brightgreen.svg)](https://mrmubeen001.github.io/MubeenMart/)
 [![Java 17](https://img.shields.io/badge/JDK-17%20LTS-orange.svg)](https://adoptium.net)
 [![Servlet 4.0](https://img.shields.io/badge/Servlet%20API-4.0%20(Tomcat%209)-blue.svg)](https://tomcat.apache.org/)
 [![Database](https://img.shields.io/badge/Database-H2%20(Server%2FEmbedded)-green.svg)](https://www.h2database.com/)
+
+> 🌐 **Live Public Deployment:** [https://mrmubeen001.github.io/MubeenMart/](https://mrmubeen001.github.io/MubeenMart/)
 
 ---
 
